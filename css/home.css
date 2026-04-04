@@ -1,0 +1,134 @@
+/* 基础重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    /* 采用 Apple 常用的无衬线字体系统 */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden; 
+    background-color: #111;
+}
+
+/* 全屏背景图与布局容器 */
+.landing-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12%; 
+    
+    /* 背景图 */
+    background-image: url('../img/home.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+/* 渐变遮罩层，压暗背景让白色文字更凸显 */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.4) 100%);
+    z-index: 0;
+}
+
+/* 左侧导航栏 */
+.left-nav {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px; /* 控制两个按钮之间的间距 */
+}
+
+/* Apple 官网风格的圆角矩形按钮 */
+.apple-btn {
+    display: inline-block;
+    padding: 14px 40px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: 2px;
+    
+    /* 毛玻璃半透明背景 */
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px); /* Apple 标志性的模糊滤镜 */
+    -webkit-backdrop-filter: blur(12px); /* 兼容 Safari */
+    
+    /* 精致的边框和圆角 */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px; /* 圆角矩形 */
+    
+    /* 丝滑的过渡动画 */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 按钮悬停效果：背景变白，文字变黑，稍微放大 */
+.apple-btn:hover {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #111111;
+    transform: scale(1.02);
+    border-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* 右侧标语区 */
+.right-content {
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+    text-align: right; 
+    margin-top: 50px;
+}
+
+.tagline {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 300; /* Apple 喜欢较细的字重 */
+    line-height: 1.6;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5); 
+
+    opacity: 0;
+    animation: fadeInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* 标语下方的装饰横线 */
+.decorative-line {
+    width: 60px;
+    height: 2px;
+    background-color: #ffffff;
+    margin-top: 20px;
+    margin-left: auto; 
+    opacity: 0.7;
+
+    opacity: 0;
+    animation: fadeInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.5s;
+}
+
+/* ------------------------- */
+/* 页面进场动画定义 */
+/* ------------------------- */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px); /* 初始位置向下偏移 40px */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* 回到原本的位置 */
+    }
+}

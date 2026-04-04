@@ -28,10 +28,10 @@ for (let i = 0; i < 256; i++) {
 
 //画面加载
 const bgImg = new Image();
-bgImg.src = './background.jpg'; //背景
+bgImg.src = '../img/background.jpg'; //背景
 
 const fgImg = new Image();
-fgImg.src = './front.png'; //前景
+fgImg.src = '../img/front.jpg'; //前景
 
 let imagesLoaded = 0; //全局计数器，记录目前有几张图片已经成功加载
 
