@@ -1,0 +1,77 @@
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    text-align: center; 
+    background: #2c3e50; 
+    color: white; 
+    margin-top: 30px; 
+}
+
+canvas { 
+    border: 2px solid #ecf0f1; 
+    border-radius: 8px; 
+    max-width: 80%; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+    background: #000; 
+}
+
+.controls { 
+    margin-top: 20px; 
+    background: #34495e; 
+    display: inline-block; 
+    padding: 20px 30px; 
+    border-radius: 10px; 
+    text-align: left; 
+}
+
+.control-group { 
+    margin-bottom: 15px; 
+}
+
+label { 
+    display: inline-block; 
+    width: 80px; 
+    font-weight: bold; 
+}
+
+input[type="range"] { 
+    width: 300px; 
+    vertical-align: middle; 
+    cursor: pointer;
+}
+
+.value-display { 
+    display: inline-block; 
+    width: 60px; 
+    text-align: right; 
+    color: #f1c40f; 
+    font-weight: bold; 
+}
+
+.ev-info {
+    text-align: center; 
+    margin-top: 15px; 
+    font-size: 15px; 
+    color: #bdc3c7;
+}
+
+#evDisplay {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* 新增直方图样式 */
+.histogram-container {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#histogramCanvas {
+    background: #1e272e;
+    border: 1px solid #7f8c8d;
+    border-radius: 4px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
+    /* 取消了原来的 max-width 限制，让直方图保持真实尺寸 */
+    max-width: none; 
+}
