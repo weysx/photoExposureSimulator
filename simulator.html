@@ -2,36 +2,68 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>基于Java的摄影曝光教学与仿真平台</title>
-    <link rel="stylesheet" href="css/simulator.css">
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>曝光三要素仿真系统</title>
+    <link rel="stylesheet" href="css/simulator.css"> </head>
 <body>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
 
-    <h2>曝光三要素仿真</h2>
-    <canvas id="photoCanvas"></canvas>
-    <br>
-    
-    <div class="controls">
-        <div class="control-group">
-            <label>光圈 (F):</label>
-            <input type="range" id="apertureSlider" min="0" max="5" step="1" value="2">
-            <span class="value-display" id="apertureVal">f/8</span>
-        </div>
-        <div class="control-group">
-            <label>快门 (S):</label>
-            <input type="range" id="shutterSlider" min="0" max="10" step="1" value="5">
-            <span class="value-display" id="shutterVal">1/125</span>
-        </div>
-        <div class="control-group">
-            <label>ISO:</label>
-            <input type="range" id="isoSlider" min="0" max="6" step="1" value="0">
-            <span class="value-display" id="isoVal">100</span>
-        </div>
-    </div>
+    <div class="simulator-wrapper">
+        <header class="app-header">
+            <h1>曝光三要素仿真</h1>
+            <p class="subtitle">Exposure Simulation Engine</p>
+        </header>
 
-    <div class="histogram-container">
-        <p style="margin: 5px 0; font-size: 14px; color: #bdc3c7;">实时曝光直方图 (左: 暗部 | 右: 亮部)</p>
-        <canvas id="histogramCanvas" width="256" height="100"></canvas>
+        <main class="app-main">
+            <section class="viewport-card">
+                <div class="canvas-container">
+                    <canvas id="bgCanvas" width="800" height="500"></canvas>
+                    <canvas id="fgCanvas" width="800" height="500"></canvas>
+                </div>
+            </section>
+
+            <section class="dashboard">
+                <div class="control-panel glass-card">
+                    <div class="panel-header">
+                        <div class="icon-pulse"></div>
+                        <span>参数调节 Parameters</span>
+                    </div>
+
+                    <div class="slider-group">
+                        <label>光圈 (F)</label>
+                        <input type="range" id="apertureSlider" min="0" max="5" step="1" value="2">
+                        <span class="value-pill" id="apertureVal">f/8</span>
+                    </div>
+
+                    <div class="slider-group">
+                        <label>快门 (S)</label>
+                        <input type="range" id="shutterSlider" min="0" max="10" step="1" value="5">
+                        <span class="value-pill" id="shutterVal">1/125</span>
+                    </div>
+
+                    <div class="slider-group">
+                        <label>ISO</label>
+                        <input type="range" id="isoSlider" min="0" max="6" step="1" value="0">
+                        <span class="value-pill" id="isoVal">100</span>
+                    </div>
+                </div>
+
+                <div class="data-panel glass-card">
+                    <div class="panel-header">
+                        <span class="dot"></span>
+                        <span>实时曝光直方图</span>
+                    </div>
+                    <div class="histogram-wrapper">
+                        <canvas id="histogramCanvas" width="256" height="120"></canvas>
+                    </div>
+                    <div class="hist-labels">
+                        <span>暗部 Shadows</span>
+                        <span>亮部 Highlights</span>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
     <script src="js/simulator.js"></script>
