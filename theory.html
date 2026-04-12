@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>理论学习 - 曝光三要素</title>
+    <link rel="stylesheet" href="css/theory.css">
+</head>
+<body>
+    <div class="app-layout">
+        
+        <aside class="sidebar">
+            <a href="index.html" class="back-nav">
+                <span class="chevron">‹</span> 返回首页
+            </a>
+
+            <div class="sidebar-header">
+                <h2>教学目录</h2>
+                <p>Photography Theory</p>
+            </div>
+
+            <nav class="tree-menu">
+                <div class="menu-item folder-title sub-item main-category" data-key="optics" style="cursor: pointer;">
+                    镜头光学基础
+                </div>
+                
+                <div class="menu-item folder-title">曝光三要素</div>
+                <ul class="sub-menu">
+                    <li class="sub-item active" data-key="aperture">光圈 (Aperture)</li>
+                    <li class="sub-item" data-key="shutter">快门 (Shutter)</li>
+                    <li class="sub-item" data-key="iso">ISO (感光度)</li>
+                </ul>
+
+                <div class="menu-item folder-title sub-item main-category" data-key="reciprocity" style="cursor: pointer; margin-top: 10px;">
+                    曝光互易律
+                </div>
+
+                <div class="menu-item folder-title sub-item main-category" data-key="histogram" style="cursor: pointer; margin-top: 10px;">
+                    曝光直方图
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="simulator.html" class="go-simulator-btn">
+                    <span class="dot"></span> 进入仿真模式
+                </a>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <article class="content-card">
+                <header class="article-header">
+                    <h1 class="article-title" id="contentTitle">加载中...</h1>
+                    <div class="title-underline"></div>
+                </header>
+                
+                <div class="article-body" id="contentBody">
+                    <p class="loading-status">正在连接数据库...</p>
+                </div>
+            </article>
+        </main>
+        
+    </div>
+
+    <script src="js/theory.js"></script>
+</body>
+</html>

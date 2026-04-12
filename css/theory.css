@@ -1,0 +1,214 @@
+/* 基础重置 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    /* 浅灰背景色 */
+    background-color: #f5f5f7; 
+    color: #1d1d1f;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 整体左右分栏布局 */
+.app-layout {
+    display: flex;
+    height: 100vh;
+}
+
+/* ================= 左侧导航栏 ================= */
+.sidebar {
+    width: 280px;
+    background: rgba(255, 255, 255, 0.7);
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0 30px 0;
+    z-index: 10;
+}
+
+.back-nav {
+    padding: 0 30px;
+    text-decoration: none;
+    color: #0066cc;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s;
+}
+.back-nav:hover { opacity: 0.7; }
+.chevron { font-size: 20px; margin-right: 6px; line-height: 1; margin-top: -2px; }
+
+.sidebar-header {
+    padding: 0 30px;
+    margin-bottom: 20px;
+}
+.sidebar-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+.sidebar-header p {
+    font-size: 12px;
+    color: #86868b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+/* 文件夹菜单 */
+.tree-menu {
+    padding: 0 20px;
+    flex: 1;
+}
+
+.menu-item {
+    display: block;
+    text-decoration: none;
+    color: #1d1d1f;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 12px 10px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+.menu-item:hover { background: rgba(0, 0, 0, 0.04); }
+
+/* 子菜单树状连接线设计 */
+.sub-menu {
+    list-style: none;
+    margin-left: 18px; /* 缩进 */
+    border-left: 1px solid #d2d2d7; /* 垂直主干线 */
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.sub-item {
+    position: relative;
+    padding: 10px 10px 10px 24px;
+    font-size: 14px;
+    color: #515154;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+/* 横向分支线 */
+.sub-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 14px;
+    height: 1px;
+    background-color: #d2d2d7;
+}
+
+.sub-item:hover { color: #1d1d1f; }
+
+/* 当前选中的子项 (沿袭自仿真器的橙色作为点缀，建立系统联系) */
+.sub-item.active {
+    color: #FF6B00;
+    font-weight: 600;
+}
+.sub-item.active::before {
+    background-color: #FF6B00; /* 选中时的线也变成橙色 */
+}
+
+/* 左侧底部仿真按钮 */
+.sidebar-footer { padding: 0 20px; }
+.go-simulator-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    background: #1d1d1f;
+    color: #fff;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: transform 0.2s, background 0.2s;
+}
+.go-simulator-btn:hover {
+    background: #000;
+    transform: scale(1.02);
+}
+.dot {
+    width: 6px; height: 6px;
+    background: #FF6B00;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #FF6B00;
+}
+
+/* ================= 右侧内容区 ================= */
+.content-area {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+/* 内容白底卡片 */
+.content-card {
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); /* 阴影 */
+    min-height: 100%;
+    padding: 60px 80px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.article-title {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #1d1d1f;
+}
+
+.title-underline {
+    width: 40px;
+    height: 4px;
+    background: #FF6B00;
+    border-radius: 2px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.placeholder-text {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #86868b;
+    padding: 40px;
+    background: #f5f5f7;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px dashed #d2d2d7;
+}
+
+/* 强制让大标题类别的风格与 folder-title 一致 */
+.main-category {
+    display: block;
+    text-decoration: none;
+    color: #1d1d1f;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px 10px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    cursor: pointer;        
+}
+
+/* 再次确认隐藏这些项的前缀横线 */
+.main-category::before {
+    display: none !important;
+}
