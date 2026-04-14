@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const contentBody = document.getElementById("contentBody");
 
     // 默认加载光圈内容
-    fetchData("aperture");
+    fetchData("optics");
 
     // 绑定菜单点击
     menuItems.forEach(item => {
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
             console.error("Fetch Error:", error);
             contentTitle.textContent = "服务未启动";
-            contentBody.innerHTML = "<p style='color:red;'>无法获取内容。请确保后端项目已 Run，且 MySQL 正常运行。</p>";
+            contentBody.innerHTML = "<p style='color:red;'>无法获取内容。请确保后端项目已 Run, 且 MySQL 正常运行。</p>";
         }
     }
 });
