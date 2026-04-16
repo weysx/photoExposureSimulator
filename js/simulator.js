@@ -193,3 +193,238 @@ function drawHistogram(pixelData) {
         histCtx.fillRect(i, histCanvas.height - height, 1, height);
     }
 }
+
+// =========================================================
+// 相机 HUD 屏幕 UI 系统 (独立图层以保证性能)
+// =========================================================
+
+// 1. 动态创建 UI 覆盖层 Canvas
+const container = document.querySelector('.canvas-container');
+const uiCanvas = document.createElement('canvas');
+uiCanvas.id = 'cameraUICanvas';
+uiCanvas.style.position = 'absolute';
+uiCanvas.style.top = '0';
+uiCanvas.style.left = '0';
+uiCanvas.style.width = '100%';
+uiCanvas.style.height = '100%';
+uiCanvas.style.pointerEvents = 'auto'; 
+uiCanvas.style.cursor = 'crosshair'; // 变为准星鼠标
+container.appendChild(uiCanvas);
+
+const uiCtx = uiCanvas.getContext('2d');
+
+// 同步画布尺寸
+function resizeUI() {
+    uiCanvas.width = canvas.width || 800;
+    uiCanvas.height = canvas.height || 500;
+    drawCameraUI();
+}
+
+// 2. 对焦状态变量
+let focusX = 400; 
+let focusY = 250;
+let focusProgress = 1; 
+let isFocusing = false;
+let focusTimer = null;
+
+
+// 3. 绘制相机的 UI 界面
+function drawCameraUI() {
+    uiCtx.clearRect(0, 0, uiCanvas.width, uiCanvas.height);
+
+    // 获取当前曝光参数
+    const fIndex = parseInt(apSlider.value, 10);
+    const f = apertures[fIndex];
+    const t = shutters[parseInt(shSlider.value, 10)];
+    const tLabel = shutterLabels[parseInt(shSlider.value, 10)];
+    const iso = isos[parseInt(isoSlider.value, 10)];
+
+    const cx = uiCanvas.width / 2;
+    const cy = uiCanvas.height / 2;
+
+    // --- A. 绘制九宫格与中心十字/测光圆 ---
+    uiCtx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+    uiCtx.lineWidth = 1;
+
+    // 九宫格
+    const w3 = uiCanvas.width / 3;
+    const h3 = uiCanvas.height / 3;
+    uiCtx.beginPath();
+    uiCtx.moveTo(w3, 0); uiCtx.lineTo(w3, uiCanvas.height);
+    uiCtx.moveTo(w3 * 2, 0); uiCtx.lineTo(w3 * 2, uiCanvas.height);
+    uiCtx.moveTo(0, h3); uiCtx.lineTo(uiCanvas.width, h3);
+    uiCtx.moveTo(0, h3 * 2); uiCtx.lineTo(uiCanvas.width, h3 * 2);
+    uiCtx.stroke();
+
+    // 中央点测光圆圈 (新增)
+    // uiCtx.beginPath();
+    // uiCtx.arc(cx, cy, 24, 0, Math.PI * 2);
+    // uiCtx.stroke();
+
+    // 左右水平辅助线
+    uiCtx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+    uiCtx.beginPath();
+    uiCtx.moveTo(cx - 200, cy); uiCtx.lineTo(cx - 50, cy);
+    uiCtx.moveTo(cx + 50, cy); uiCtx.lineTo(cx + 200, cy);
+    uiCtx.stroke();
+
+    // 中心微型十字准星
+    uiCtx.beginPath();
+    uiCtx.moveTo(cx, cy - 10); uiCtx.lineTo(cx, cy + 10);
+    uiCtx.moveTo(cx - 10, cy); uiCtx.lineTo(cx + 10, cy);
+    uiCtx.stroke();
+
+    // --- B. 绘制顶部状态栏 (新增专业元素) ---
+    uiCtx.fillStyle = 'rgba(0, 0, 0, 0.4)'; // 顶部半透明渐变或背景栏
+    uiCtx.fillRect(0, 0, uiCanvas.width, 36);
+
+    uiCtx.font = 'bold 16px "SF Pro Display", sans-serif';
+    uiCtx.fillStyle = '#FFFFFF';
+    uiCtx.textAlign = 'left';
+    uiCtx.textBaseline = 'middle';
+    
+    // 左上角状态
+    uiCtx.fillText('M', 20, 18); // 手动模式
+    uiCtx.font = '14px "SF Pro Display", sans-serif';
+    uiCtx.fillText('AWB', 50, 18); // 自动白平衡
+    uiCtx.fillText('AF-S', 100, 18); // 单次对焦
+    
+    // 右上角状态
+    uiCtx.textAlign = 'right';
+    uiCtx.fillText('RAW+J', uiCanvas.width - 90, 18); // 照片格式
+    uiCtx.fillText('[999]', uiCanvas.width - 45, 18); // 剩余张数
+    // 简易电池图标
+    uiCtx.strokeStyle = '#FFFFFF';
+    uiCtx.strokeRect(uiCanvas.width - 35, 12, 20, 10);
+    uiCtx.fillRect(uiCanvas.width - 33, 14, 16, 6);
+    uiCtx.fillRect(uiCanvas.width - 15, 15, 2, 4);
+
+    // --- C. 绘制底部曝光参数栏 ---
+    uiCtx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+    // 将高度减小到 36，让灰条变窄
+    uiCtx.fillRect(0, uiCanvas.height - 36, uiCanvas.width, 36); 
+
+    uiCtx.font = '16px "SF Pro Display", sans-serif';
+    uiCtx.fillStyle = '#ffffff'; 
+    uiCtx.textAlign = 'center';
+    uiCtx.textBaseline = 'middle';
+    
+    // 文字的高度也跟着调整到灰条中心
+    const textY = uiCanvas.height - 18; 
+    // 测光表变长了，为了防止拥挤，把 F 和 ISO 稍微再往两边推一点 (从200改成260)
+    uiCtx.fillText(`F${f}`, cx - 260, textY); 
+    uiCtx.fillText(`${tLabel}s`, cx, textY);
+    uiCtx.fillText(`ISO ${iso}`, cx + 260, textY);
+
+    // --- D. 绘制曝光指示表 EV Meter (核心专业感) ---
+    // 计算当前的真实曝光差值 (复用你底层的逻辑)
+    const evA = 2 * Math.log2(baseAperture / f); 
+    const evT = Math.log2(t / baseShutter); 
+    const evS = Math.log2(iso / baseIso); 
+    let deltaEV = evA + evT + evS;
+    // 限制在 -3 到 +3 之间显示
+    const displayEV = Math.max(-3, Math.min(3, deltaEV)); 
+
+    const meterWidth = 200;
+    const meterStartX = cx - meterWidth / 2;
+    const meterY = uiCanvas.height - 40; // 放置在参数上方一点
+
+    uiCtx.strokeStyle = '#FFFFFF';
+    uiCtx.fillStyle = '#FFFFFF';
+    uiCtx.lineWidth = 1;
+    uiCtx.font = '10px sans-serif';
+
+    // 绘制刻度线
+    for (let i = -3; i <= 3; i++) {
+        const x = meterStartX + (i + 3) * (meterWidth / 6);
+        const tickHeight = (i === 0) ? 8 : (i % 1 === 0 ? 5 : 3); // 0刻度最长
+        
+        uiCtx.beginPath();
+        uiCtx.moveTo(x, meterY);
+        uiCtx.lineTo(x, meterY - tickHeight);
+        uiCtx.stroke();
+
+        // 标出数字 -3, 0, +3
+        if (i === -3 || i === 0 || i === 3) {
+            let label = i > 0 ? `+${i}` : i;
+            uiCtx.fillText(label, x, meterY - 12);
+        }
+    }
+    
+    // 绘制当前 EV 所在的动态指针 (小倒三角)
+    const pointerX = meterStartX + (displayEV + 3) * (meterWidth / 6);
+    uiCtx.fillStyle = (Math.abs(deltaEV) > 2) ? '#FF4444' : '#00FF00'; // 曝光严重不足/过度时变红
+    uiCtx.beginPath();
+    uiCtx.moveTo(pointerX, meterY + 2);
+    uiCtx.lineTo(pointerX - 4, meterY + 8);
+    uiCtx.lineTo(pointerX + 4, meterY + 8);
+    uiCtx.fill();
+
+
+    // --- E. 绘制动态对焦框 ---
+    const boxSize = 80 - (focusProgress * 40); 
+    uiCtx.lineWidth = 2;
+    uiCtx.strokeStyle = isFocusing ? '#FFFFFF' : '#00FF00'; 
+
+    const halfBox = boxSize / 2;
+    const corner = 12; 
+
+    uiCtx.beginPath();
+    uiCtx.moveTo(focusX - halfBox, focusY - halfBox + corner);
+    uiCtx.lineTo(focusX - halfBox, focusY - halfBox);
+    uiCtx.lineTo(focusX - halfBox + corner, focusY - halfBox);
+    uiCtx.moveTo(focusX + halfBox - corner, focusY - halfBox);
+    uiCtx.lineTo(focusX + halfBox, focusY - halfBox);
+    uiCtx.lineTo(focusX + halfBox, focusY - halfBox + corner);
+    uiCtx.moveTo(focusX + halfBox, focusY + halfBox - corner);
+    uiCtx.lineTo(focusX + halfBox, focusY + halfBox);
+    uiCtx.lineTo(focusX + halfBox - corner, focusY + halfBox);
+    uiCtx.moveTo(focusX - halfBox + corner, focusY + halfBox);
+    uiCtx.lineTo(focusX - halfBox, focusY + halfBox);
+    uiCtx.lineTo(focusX - halfBox, focusY + halfBox - corner);
+    uiCtx.stroke();
+    
+    if (isFocusing) {
+        requestAnimationFrame(drawCameraUI);
+    }
+}
+
+// 4. 处理鼠标点击对焦交互
+uiCanvas.addEventListener('mousedown', (e) => {
+    const rect = uiCanvas.getBoundingClientRect();
+    const scaleX = uiCanvas.width / rect.width;
+    const scaleY = uiCanvas.height / rect.height;
+    
+    focusX = (e.clientX - rect.left) * scaleX;
+    focusY = (e.clientY - rect.top) * scaleY;
+    
+    startFocusAnimation();
+});
+
+function startFocusAnimation() {
+    if (focusTimer) clearInterval(focusTimer);
+    isFocusing = true;
+    focusProgress = 0; 
+    
+    focusTimer = setInterval(() => {
+        focusProgress += 0.1;
+        if (focusProgress >= 1) {
+            focusProgress = 1;
+            isFocusing = false;
+            clearInterval(focusTimer);
+            drawCameraUI(); 
+        }
+    }, 30);
+    
+    drawCameraUI(); 
+}
+
+// 5. 参数同步：直接将 UI 绘制函数绑定到滑块事件上
+[apSlider, shSlider, isoSlider].forEach(slider => {
+    slider.addEventListener('input', drawCameraUI);
+});
+
+// 监听窗口缩放防错位
+window.addEventListener('resize', resizeUI);
+// 初始化时等待原画布加载完成再对齐尺寸
+setTimeout(resizeUI, 500);
