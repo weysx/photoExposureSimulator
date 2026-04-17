@@ -49,6 +49,33 @@ body {
     gap: 24px; /* 间距等比缩小 */
 }
 
+/* ========================================= */
+/* 返回首页链接样式 */
+/* ========================================= */
+.back-nav-container {
+    position: absolute;
+    left: 20px;
+    top: 35px; /* 与标题对齐的高度 */
+    z-index: 100;
+}
+
+.back-home-link {
+    color: #888c96;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.back-home-link:hover {
+    color: #ffffff;
+    /* transform: translateX(-2px); 悬停时往左微动，增加交互感 */
+}
+
+
 /* 头部标题 */
 .app-header {
     text-align: center;

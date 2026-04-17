@@ -66,6 +66,32 @@ body {
     text-transform: uppercase;
 }
 
+/* 返回首页链接 - 与仿真模块完全同步 */
+/* ========================================= */
+.back-nav-container {
+    position: absolute;
+    left: 20px;
+    top: 35px;
+    z-index: 100;
+}
+
+.back-home-link {
+    color: #888c96;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 悬停效果：文字变白并向左微动 */
+.back-home-link:hover {
+    color: #ffffff;
+    /* transform: translateX(-2px); */
+}
+
 /* 控制主干区域的上下间距 */
 .app-main {
     display: flex;
