@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>曝光闯关挑战</title>
+    <link rel="stylesheet" href="css/challenge.css"> 
+</head>
+<body>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <div class="simulator-wrapper">
+        <header class="app-header">
+            <div style="position: absolute; left: 20px; top: 35px;">
+                <a href="index.html" style="color: #888c96; text-decoration: none; font-size: 14px;">‹ 返回首页</a>
+            </div>
+            <h1>曝光闯关考核</h1>
+            <p class="subtitle">Exposure Challenge Mode</p>
+        </header>
+
+        <main class="app-main">
+            <section class="viewport-card">
+                <div class="canvas-container">
+                    <canvas id="bgCanvas" width="800" height="500"></canvas>
+                    <canvas id="fgCanvas" width="800" height="500"></canvas>
+                </div>
+            </section>
+
+            <section class="dashboard">
+                <div class="control-panel glass-card">
+                    
+                    <div class="mission-box">
+                        <div class="mission-header">
+                            <span class="level-badge" id="levelBadge">Lv.1</span>
+                            <span id="missionTitle">加载中...</span>
+                        </div>
+                        <p id="missionDesc">加载中...</p>
+                    </div>
+
+                    <div class="slider-group">
+                        <label>光圈 (F)</label>
+                        <input type="range" id="apertureSlider" min="0" max="5" step="1" value="2">
+                        <span class="value-pill" id="apertureVal">f/8</span>
+                    </div>
+
+                    <div class="slider-group">
+                        <label>快门 (S)</label>
+                        <input type="range" id="shutterSlider" min="0" max="10" step="1" value="5">
+                        <span class="value-pill" id="shutterVal">1/125</span>
+                    </div>
+
+                    <div class="slider-group">
+                        <label>ISO</label>
+                        <input type="range" id="isoSlider" min="0" max="6" step="1" value="0">
+                        <span class="value-pill" id="isoVal">100</span>
+                    </div>
+
+                    <button id="btnShoot" class="shoot-btn">按动快门 (提交测试)</button>
+                </div>
+
+                <div class="data-panel glass-card">
+                    <div class="panel-header">
+                        <span class="dot"></span>
+                        <span>实时曝光直方图</span>
+                    </div>
+                    <div class="histogram-wrapper">
+                        <canvas id="histogramCanvas" width="256" height="120"></canvas>
+                    </div>
+                    <div class="hist-labels">
+                        <span>暗部 Shadows</span>
+                        <span>亮部 Highlights</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/challenge.js"></script>
+</body>
+</html>
