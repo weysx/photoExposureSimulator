@@ -1,0 +1,141 @@
+/* 基础重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* 背景环境光 */
+.ambient-glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(circle, rgba(255, 107, 0, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.about-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 6%;
+}
+
+/* 导航头 */
+.nav-header {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-link {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+}
+
+.back-link:hover {
+    color: #FF6B00;
+}
+
+.version-tag {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+
+
+/* 逻辑架构网格 */
+.logic-framework {
+    padding: 80px 0 100px; /* 顶部留出80px呼吸感 */
+}
+
+.section-label {
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: #FF6B00;
+    margin-bottom: 60px;
+}
+
+.framework-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 60px;
+}
+
+.framework-item {
+    position: relative;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.framework-item .num {
+    display: block;
+    font-size: 14px;
+    font-family: serif;
+    color: #FF6B00;
+    margin-bottom: 20px;
+}
+
+.framework-item h3 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.framework-item p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: justify;
+}
+
+/* 底部宣言 */
+.footer-manifesto {
+    /* padding: 150px 0 100px; */
+    text-align: center;
+}
+
+.decorative-line {
+    width: 1px;
+    height: 100px;
+    background: linear-gradient(to bottom, #FF6B00, transparent);
+    margin: 0 auto 40px;
+}
+
+.final-quote {
+    font-size: 18px;
+    letter-spacing: 8px;
+    font-weight: 200;
+    margin-bottom: 20px;
+    opacity: 0.7;
+}
+
+.signature {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+    .giant-title { letter-spacing: -2px; }
+    .hero-section { padding: 60px 0; }
+    .framework-grid { gap: 30px; }
+}

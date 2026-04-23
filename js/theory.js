@@ -38,5 +38,13 @@ document.addEventListener("DOMContentLoaded", () => {
             contentTitle.textContent = "服务未启动";
             contentBody.innerHTML = "<p style='color:red;'>无法获取内容。请确保后端项目已 Run, 且 MySQL 正常运行。</p>";
         }
+
+        const quizSection = `
+            <div class="quiz-entrance" style="padding: 40px; text-align: center;">
+                
+                <a href="quiz.html?topic=${key}" style="background: #FF6B00; color: #fff; padding: 14px 30px; border-radius: 25px; text-decoration: none; font-weight: 600;">进入测验</a>
+            </div>
+        `;
+        contentBody.innerHTML += quizSection;
     }
 });

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知识点测验 - 摄影学习平台</title>
+    <link rel="stylesheet" href="css/quiz.css">
+</head>
+<body>
+    <div class="quiz-layout">
+        <header class="quiz-header">
+            <a href="theory.html" class="back-link">‹ 返回理论学习</a>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <span class="progress-text" id="progressText">1 / 3</span>
+        </header>
+
+        <main class="quiz-main">
+            <div class="quiz-card" id="quizCard">
+                <div class="card-header">
+                    <span class="category-tag" id="categoryTag">光圈篇</span>
+                    <h1 class="question-text" id="questionText">加载中...</h1>
+                </div>
+
+                <div class="options-list" id="optionsList">
+                    </div>
+
+                <div class="feedback-panel" id="feedbackPanel" style="display: none;">
+                    <div class="feedback-content">
+                        <span id="feedbackIcon"></span>
+                        <p id="feedbackText"></p>
+                    </div>
+                    <button class="next-btn" id="nextBtn">next</button>
+                </div>
+            </div>
+
+            <div class="result-card" id="resultCard" style="display: none;">
+                <div class="score-display">
+                    <span class="score-num" id="finalScore">0</span>
+                    <span class="score-label">分</span>
+                </div>
+                <h2 id="resultTitle">测验完成！</h2>
+                <p id="resultDesc">你已经掌握了本章节的核心逻辑。</p>
+                <div class="action-btns">
+                    <button onclick="location.reload()" class="retry-btn">重新挑战</button>
+                    <a href="simulator.html" class="action-btn-primary">进入仿真演练</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/quiz.js"></script>
+</body>
+</html>
