@@ -445,11 +445,11 @@ const challengeLevels = [
     {
         title: "拯救曝光过度",
         desc: "上一位摄影师用完相机后参数没调回来，导致画面严重过曝。请调整任意参数，使相机屏幕下方的 EV 指针归零 (曝光居中)。",
-        initAp: 0, initSh: 10, initIso: 6, 
+        initAp: 3, initSh: 10, initIso: 6, 
         check: (ev, f, t, iso) => Math.abs(ev) <= 1,
         // 第一关的图片
-        bgSrc: '../img/background.jpg',
-        fgSrc: '../img/front.jpg' 
+        bgSrc: '../img/background1.jpg',
+        fgSrc: '../img/front1.jpg' 
     },
     {
         title: "抓拍运动瞬间",
