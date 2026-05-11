@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 无法对焦</title>
+    <style>
+        /* 基础重置 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: #050505; /* 极暗的纯黑色 */
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 🔦 探照灯/暗角特效 (跟随鼠标) */
+        .spotlight {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* 不阻挡鼠标点击 */
+            background: radial-gradient(circle 300px at 50% 50%, transparent 0%, rgba(5, 5, 5, 0.98) 80%);
+            z-index: 10;
+        }
+
+        /* 核心内容区 */
+        .error-content {
+            text-align: center;
+            z-index: 5;
+            padding: 40px;
+        }
+
+        /* 巨大的 404 字体 */
+        .error-code {
+            font-size: 150px;
+            font-weight: 800;
+            letter-spacing: -5px;
+            line-height: 1;
+            margin-bottom: 10px;
+            /* 给字体加一点镜头炫光感 */
+            text-shadow: 0 0 20px rgba(255, 107, 0, 0.2), -2px -2px 0 rgba(255, 255, 255, 0.1);
+            color: #1a1a1a; /* 默认很暗 */
+            transition: color 0.5s ease;
+        }
+
+        /* 鼠标靠近时变亮 */
+        .error-content:hover .error-code {
+            color: #333;
+        }
+
+        .error-title {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            color: #FF6B00; /* 品牌橙 */
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .error-desc {
+            font-size: 16px;
+            color: #888c96;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* 返回首页按钮 */
+        .back-btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background-color: transparent;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .back-btn:hover {
+            background-color: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* 相机对焦框装饰 */
+        .focus-frame {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 107, 0, 0.5);
+            pointer-events: none;
+            z-index: 1;
+            transition: all 0.2s ease-out;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="spotlight" id="spotlight"></div>
+
+    <div class="focus-frame" id="focusFrame"></div>
+
+    <main class="error-content">
+        <div class="error-code">404</div>
+        <h1 class="error-title">画面太暗，无法对焦</h1>
+        <p class="error-desc">
+            你似乎来到了一个没有光线的角落。<br>
+            可能是镜头盖忘了摘，或者是网址输入错误。
+        </p>
+        <a href="index.html" class="back-btn">打开闪光灯并返回首页</a>
+    </main>
+
+    <script>
+        // 探照灯与对焦框的交互脚本
+        const spotlight = document.getElementById('spotlight');
+        const focusFrame = document.getElementById('focusFrame');
+        
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            // 改变探照灯背景的渐变中心点
+            spotlight.style.background = `radial-gradient(circle 350px at ${x}px ${y}px, transparent 0%, rgba(5, 5, 5, 0.98) 80%)`;
+            
+            // 让对焦框跟随鼠标，带有微小的延迟感
+            focusFrame.style.opacity = '1';
+            focusFrame.style.left = `${x - 20}px`;
+            focusFrame.style.top = `${y - 20}px`;
+        });
+
+        // 鼠标移出屏幕时隐藏对焦框
+        document.addEventListener('mouseleave', () => {
+            focusFrame.style.opacity = '0';
+            spotlight.style.background = `radial-gradient(circle 350px at 50% 50%, transparent 0%, rgba(5, 5, 5, 0.98) 80%)`;
+        });
+    </script>
+</body>
+</html>
