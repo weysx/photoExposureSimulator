@@ -21,7 +21,6 @@
 
 - [项目简介](#项目简介)
 - [功能模块](#功能模块)
-- [界面预览](#界面预览)
 - [技术栈](#技术栈)
 - [整体架构](#整体架构)
 - [快速开始](#快速开始)
@@ -61,25 +60,6 @@
 | 闯关挑战 | `challenge.html` | 3 个场景关卡，除曝光归零外还有额外参数约束，过关后自动切换场景与图片 |
 | 关于本站 | `about.html` | 设计思路与功能框架说明 |
 | 404 彩蛋 | `404.html` | "画面太暗，无法对焦"——探照灯跟随鼠标 + 对焦框动画 |
-
----
-
-## 界面预览
-
-<table>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/home.jpg" alt="门户首页"><br><sub><b>门户首页</b>：全屏背景 + 三大入口</sub></td>
-    <td width="50%"><img src="docs/screenshots/simulator.jpg" alt="仿真演练"><br><sub><b>仿真演练</b>：相机 HUD、EV 表、实时直方图</sub></td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/theory.jpg" alt="理论学习"><br><sub><b>理论学习</b>：侧边栏知识树 + 数据库文章</sub></td>
-    <td width="50%"><img src="docs/screenshots/challenge.jpg" alt="闯关挑战"><br><sub><b>闯关挑战</b>：场景任务 + 参数约束判定</sub></td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="docs/screenshots/quiz.jpg" alt="随堂测验"><br><sub><b>随堂测验</b>：进度条、选项与解析</sub></td>
-    <td width="50%"><img src="docs/screenshots/about.jpg" alt="关于本站"><br><sub><b>关于本站</b>：设计框架（THE FRAMEWORK）</sub></td>
-  </tr>
-</table>
 
 ---
 
